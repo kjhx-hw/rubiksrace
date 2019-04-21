@@ -25,9 +25,10 @@ public class Game extends JFrame {
     public Game() {
         setSize(500, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
         initializeMenu();
         add(gameBoard);
+        setResizable(false);
+        setVisible(true);
     }
 
     private void initializeMenu() {
