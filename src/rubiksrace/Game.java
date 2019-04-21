@@ -11,6 +11,9 @@ import java.awt.MenuBar;
 import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author kjhuggins
@@ -32,12 +35,47 @@ public class Game extends JFrame {
         Menu menuView = new Menu("View");
         menuBar.add(menuView);
         
-        MenuItem startOver = new MenuItem("Start Over");
-        menuView.add(startOver); 
         MenuItem showSolution = new MenuItem("Solution");
         menuView.add(showSolution);
         MenuItem viewHighScores = new MenuItem("High Scores");
         menuView.add(viewHighScores);
+        
+        Menu menuHelp = new Menu("Help");
+        menuBar.add(menuHelp);
+        
+        MenuItem startOver = new MenuItem("Start Over");
+        menuHelp.add(startOver);
+        MenuItem onlineInstructions = new MenuItem("Online Instructions...");
+        menuHelp.add(onlineInstructions);
+        menuHelp.addSeparator();
+        MenuItem reportIssue = new MenuItem("Report Issue");
+        menuHelp.add(reportIssue);
+        
+        onlineInstructions.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent ae) {
+               String url = "https://github.com/kjhx/rubiksrace/wiki";
+               
+               try {
+                   java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+               } catch (IOException ex) {
+                   Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+               }
+           }
+        });
+        
+        reportIssue.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent ae) {
+               String url = "https://github.com/kjhx/rubiksrace/issues/new/choose";
+               
+               try {
+                   java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+               } catch (IOException ex) {
+                   Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+               }
+           }
+        });
         
         /*
         startOver.addActionListener(new ActionListener(){
