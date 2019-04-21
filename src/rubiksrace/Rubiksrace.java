@@ -16,6 +16,7 @@ public class Rubiksrace {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        // hi from degnan
     }
     
 }
