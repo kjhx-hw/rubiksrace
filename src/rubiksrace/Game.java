@@ -16,13 +16,15 @@ import java.awt.event.ActionListener;
  * @author kjhuggins
  */
 public class Game extends JFrame {
+    private GameBoard gameBoard = new GameBoard();
     private MenuBar menuBar = new MenuBar();
     
     public Game() {
         setSize(500, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        initializeMenu();
         setVisible(true);
+        initializeMenu();
+        add(gameBoard);
     }
 
     private void initializeMenu() {

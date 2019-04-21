@@ -8,7 +8,7 @@ import java.awt.Button;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import javafx.scene.paint.Color;
+import java.awt.Color;
 
 /**
  *
@@ -33,5 +33,21 @@ public class GameTile extends Button {
                     }
                 }
             });
+    }
+    
+    public void setColorBackground(java.awt.Color newColor) {
+        colorBackground = newColor;
+    }
+    
+    public void flip() {
+        setBackground(colorBackground);
+    }
+    
+    public void flipBack() {
+        setBackground(colorForeground);
+    }
+    
+    public void addTileClickedListener(IGameTileListener listener) {
+        clickListeners.add(listener);
     }
 }
