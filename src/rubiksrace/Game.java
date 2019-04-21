@@ -19,27 +19,23 @@ public class Game extends JFrame {
     private MenuBar menuBar = new MenuBar();
     
     public Game() {
-        //JFrame frame = new JFrame("Rubik's Race");
-        //frame.setSize(500, 500);
         setSize(500, 500);
-        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initializeMenu();
-        //frame.setVisible(true);
         setVisible(true);
     }
 
     private void initializeMenu() {
         
-        Menu Game = new Menu("Game");
-        menuBar.add(Game);
+        Menu menuView = new Menu("View");
+        menuBar.add(menuView);
         
         MenuItem startOver = new MenuItem("Start Over");
-        Game.add(startOver); 
-        MenuItem showSolution = new MenuItem("Show Solution");
-        Game.add(showSolution);
-        MenuItem viewHighScores = new MenuItem("View High Scores");
-        Game.add(viewHighScores);
+        menuView.add(startOver); 
+        MenuItem showSolution = new MenuItem("Solution");
+        menuView.add(showSolution);
+        MenuItem viewHighScores = new MenuItem("High Scores");
+        menuView.add(viewHighScores);
         
         /*
         startOver.addActionListener(new ActionListener(){
