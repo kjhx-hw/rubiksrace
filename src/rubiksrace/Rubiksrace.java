@@ -5,6 +5,8 @@
  */
 package rubiksrace;
 
+import javax.swing.UIManager;
+
 /**
  *
  * @author kjhuggins
@@ -15,8 +17,13 @@ public class Rubiksrace {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        // hi from degnan
+        try {
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        Game game = new Game();
     }
     
 }
