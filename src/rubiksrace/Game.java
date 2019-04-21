@@ -32,7 +32,6 @@ public class Game extends JFrame {
     }
 
     private void initializeMenu() {
-        
         Menu menuView = new Menu("View");
         menuBar.add(menuView);
         

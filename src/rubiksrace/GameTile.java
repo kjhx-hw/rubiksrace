@@ -15,10 +15,12 @@ import java.awt.Color;
  * @author kjhuggins
  */
 public class GameTile extends Button {
-    private Color colorBackground = Color.WHITE;
-    private Color colorForeground = null;
+    // Default button color is BLACK
+    private Color tileColor = Color.BLACK;
     
     private boolean hasMatch = false;
+    private boolean isEmpty = false;
+    
     private ArrayList<IGameTileListener> clickListeners = new ArrayList<IGameTileListener>();
     
     public GameTile(String label) {
@@ -33,18 +35,14 @@ public class GameTile extends Button {
                     }
                 }
             });
+            
+            setColor(tileColor);
     }
     
-    public void setColorBackground(java.awt.Color newColor) {
-        colorBackground = newColor;
-    }
-    
-    public void flip() {
-        setBackground(colorBackground);
-    }
-    
-    public void flipBack() {
-        setBackground(colorForeground);
+    public void setColor(java.awt.Color newColor) {
+        tileColor = newColor;
+        setBackground(newColor);
+        setForeground(newColor);
     }
     
     public void addTileClickedListener(IGameTileListener listener) {

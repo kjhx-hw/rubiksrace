@@ -32,12 +32,12 @@ public class GameBoard extends JPanel implements IGameTileListener {
         tiles = new ArrayList();
         for (int i = 0; i < ((DIMENSION*DIMENSION)/2); i++) {
             GameTile newCard = new GameTile("");
-            newCard.setColorBackground(backColors.get(i));
+            // newCard.setColorForeground(backColors.get(i));
             tiles.add(newCard);
             newCard.addTileClickedListener(this);
             
             GameTile newCard2 = new GameTile("");
-            newCard2.setColorBackground(backColors.get(i));
+            // newCard2.setColorForeground(backColors.get(i));
             tiles.add(newCard2);
             newCard2.addTileClickedListener(this);
         }
@@ -46,6 +46,8 @@ public class GameBoard extends JPanel implements IGameTileListener {
         for(int i = 0; i < tiles.size(); i++) {
             add(tiles.get(i));
         }
+        
+        // startTime = getTime();
     }
     
     public void setColors() {
@@ -65,6 +67,13 @@ public class GameBoard extends JPanel implements IGameTileListener {
     
     @Override
     public void tileClicked(GameTile tile) {
-        // Ah
+        tile.setColor(Color.yellow);
+    }
+    
+    public long getTime() {
+        long result;
+        result = System.currentTimeMillis()/1000;
+        
+        return result;
     }
 }
