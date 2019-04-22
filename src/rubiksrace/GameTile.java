@@ -45,6 +45,18 @@ public class GameTile extends Button {
         setForeground(newColor);
     }
     
+    public Color getColor() {
+        return tileColor;
+    }
+    
+    public void setEmpty(boolean q) {
+        isEmpty = q;
+    }
+    
+    public boolean getEmpty() {
+        return isEmpty;
+    }
+    
     public void addTileClickedListener(IGameTileListener listener) {
         clickListeners.add(listener);
     }
