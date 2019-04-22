@@ -21,6 +21,7 @@ public class GameBoard extends JPanel implements IGameTileListener {
     private final int DIMENSION = 5;
     static ArrayList<GameTile> tileDeck = null;
     GameTile[][] allTiles = new GameTile[5][5];
+    Coordinate emptyLocation = null;
     private ArrayList<Color> backColors = new ArrayList<>(Arrays.asList(Color.BLUE, Color.BLUE, Color.BLUE, Color.BLUE, Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN, Color.RED, Color.RED,Color.RED, Color.RED, Color.ORANGE, Color.ORANGE, Color.ORANGE, Color.ORANGE, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE, Color.YELLOW, Color.YELLOW, Color.YELLOW, Color.YELLOW, Color.BLACK));
     static long startTime = 0;
     
@@ -50,6 +51,11 @@ public class GameBoard extends JPanel implements IGameTileListener {
             for (int c = 0; c < 5; c++) {
                 allTiles[i][c] = tileDeck.get(q);
                 tileDeck.get(q).setCoordinate(new Coordinate(i, c));
+                if (tileDeck.get(q).getColor() == Color.BLACK) {
+                    tileDeck.get(q).setEmpty(true);
+                    emptyLocation = new Coordinate(tileDeck.get(q).getCoordinate());
+                }
+                
                 q++;
             }
         }
@@ -60,6 +66,10 @@ public class GameBoard extends JPanel implements IGameTileListener {
     @Override
     public void tileClicked(GameTile tile) {
         System.out.println(tile.getCoordinate());
+        System.out.println(tile.getColor());
+        System.out.println(tile.getEmpty());
+        System.out.println(emptyLocation);
+        System.out.println();
     }
     
     public long getTime() {
