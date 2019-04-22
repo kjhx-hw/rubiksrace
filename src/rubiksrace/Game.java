@@ -51,6 +51,14 @@ public class Game extends JFrame {
         MenuItem reportIssue = new MenuItem("Report Issue");
         menuHelp.add(reportIssue);
         
+        startOver.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameBoard.resetGame();
+                
+            }
+        });
+        
         onlineInstructions.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent ae) {

@@ -56,4 +56,11 @@ public class GameBoard extends JPanel implements IGameTileListener {
         
         return result;
     }
+
+    void resetGame() {
+        removeAll();
+        tiles = null;
+        initializeCards();
+        revalidate();
+    }
 }
