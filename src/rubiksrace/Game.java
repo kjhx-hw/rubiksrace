@@ -55,7 +55,6 @@ public class Game extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gameBoard.resetGame();
-                
             }
         });
         
@@ -84,39 +83,6 @@ public class Game extends JFrame {
                }
            }
         });
-        
-        /*
-        startOver.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-               for(int i = 0; i < GameBoard.cards.size(); i++)
-               {
-                   GameBoard.cards.get(i).flipBack();
-                   GameBoard.cards.get(i).makeUnMatched();
-                   GameBoard.startTime = gameboard.getTime();
-               }
-            }
-        });
-        
-        showSolution.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-               for(int i = 0; i < GameBoard.cards.size(); i++)
-               {
-                   GameBoard.cards.get(i).flip();
-                   GameBoard.cards.get(i).makeMatched();
-                   
-               }
-            }
-        });
-        
-        viewHighScores.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-               gameboard.showHighScores();
-            }
-        });
-        */
                 
         setMenuBar(menuBar);
     }
