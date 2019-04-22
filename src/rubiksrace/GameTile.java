@@ -18,6 +18,8 @@ public class GameTile extends Button {
     // Default button color is BLACK
     private Color tileColor = Color.BLACK;
     
+    Coordinate location = null;
+    
     private boolean hasMatch = false;
     private boolean isEmpty = false;
     
@@ -59,5 +61,13 @@ public class GameTile extends Button {
     
     public void addTileClickedListener(IGameTileListener listener) {
         clickListeners.add(listener);
+    }
+
+    void setCoordinate(Coordinate q) {
+        location = q;
+    }
+    
+    public Coordinate getCoordinate() {
+        return location;
     }
 }
