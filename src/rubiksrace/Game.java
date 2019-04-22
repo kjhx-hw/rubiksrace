@@ -62,12 +62,7 @@ public class Game extends JFrame {
            @Override
            public void actionPerformed(ActionEvent ae) {
                String url = "https://github.com/kjhx/rubiksrace/wiki";
-               
-               try {
-                   java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
-               } catch (IOException ex) {
-                   Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-               }
+               openUrl(url);
            }
         });
         
@@ -75,15 +70,18 @@ public class Game extends JFrame {
            @Override
            public void actionPerformed(ActionEvent ae) {
                String url = "https://github.com/kjhx/rubiksrace/issues/new/choose";
-               
-               try {
-                   java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
-               } catch (IOException ex) {
-                   Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-               }
+               openUrl(url);
            }
         });
                 
         setMenuBar(menuBar);
+    }
+    
+    private void openUrl(String url) {
+        try {
+            java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+        } catch (IOException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
