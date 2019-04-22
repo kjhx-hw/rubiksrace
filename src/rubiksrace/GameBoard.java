@@ -29,7 +29,6 @@ public class GameBoard extends JPanel implements IGameTileListener {
     }
 
     private void initializeCards() {
-        // setColors();
         tiles = new ArrayList();
         for (int i = 0; i < ((DIMENSION*DIMENSION)); i++) {
             GameTile newCard = new GameTile("");
@@ -44,21 +43,6 @@ public class GameBoard extends JPanel implements IGameTileListener {
         }
         
         // startTime = getTime();
-    }
-    
-    public void setColors() {
-         backColors = new ArrayList();
-         Random random = new Random();
-
-        for(int i = 0; i < ((DIMENSION*DIMENSION)/2); i++) {
-            
-            float red = random.nextFloat();
-            float green = random.nextFloat();
-            float blue = random.nextFloat();
-            
-            Color newColor = new Color(red, green, blue);
-            backColors.add(newColor);
-        }
     }
     
     @Override
