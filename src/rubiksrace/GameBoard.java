@@ -66,6 +66,10 @@ public class GameBoard extends JPanel implements IGameTileListener {
     
     @Override
     public void tileClicked(GameTile tile) {
+        
+        Integer direction = directionFind(tile, emptyLocation);
+        tileMove(direction, tile, emptyLocation);
+        
         System.out.println(tile.getCoordinate());
         System.out.println(tile.getColor());
         System.out.println(tile.getEmpty());
@@ -87,13 +91,13 @@ public class GameBoard extends JPanel implements IGameTileListener {
         revalidate();
     }
     
-    public Integer directionFind(GameTile tile, Coordinate emptylocation) {
+    public Integer directionFind(GameTile tile, Coordinate emptyLocation) {
         Integer result = 0;
         
         Integer clickX = tile.getCoordinate().x;
         Integer clickY = tile.getCoordinate().y;
-        Integer blankX = emptylocation.x;
-        Integer blankY = emptylocation.y;
+        Integer blankX = emptyLocation.x;
+        Integer blankY = emptyLocation.y;
         
         if (Objects.equals(clickX, blankX)) {
             
@@ -128,12 +132,12 @@ public class GameBoard extends JPanel implements IGameTileListener {
         return result;
     }
     
-    public void tileMove(Integer direction, GameTile tile, Coordinate emptylocation) {
+    public void tileMove(Integer direction, GameTile tile, Coordinate emptyLocation) {
         
         Integer tileX = tile.getCoordinate().x;
         Integer tileY = tile.getCoordinate().y;
-        Integer emptyX = emptylocation.x;
-        Integer emptyY = emptylocation.y;
+        Integer emptyX = emptyLocation.x;
+        Integer emptyY = emptyLocation.y;
            
         switch (direction) {
             
@@ -149,6 +153,8 @@ public class GameBoard extends JPanel implements IGameTileListener {
                 }
                 
                 allTiles[tileX][tileY].setEmpty(true);
+                
+                System.out.println("Case 1: LEFT");
             break;
             
             case 2:
@@ -175,6 +181,8 @@ public class GameBoard extends JPanel implements IGameTileListener {
             default:
                 //Do nothing
         }
+        
+        revalidate();
        
     }
 }
