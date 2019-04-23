@@ -11,9 +11,14 @@ import java.awt.MenuBar;
 import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author kjhuggins
@@ -51,6 +56,13 @@ public class Game extends JFrame {
         MenuItem reportIssue = new MenuItem("Report Issue");
         menuHelp.add(reportIssue);
         
+        viewHighScores.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameBoard.showHighScores();
+            }
+        });
+        
         startOver.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -62,12 +74,7 @@ public class Game extends JFrame {
            @Override
            public void actionPerformed(ActionEvent ae) {
                String url = "https://github.com/kjhx/rubiksrace/wiki";
-               
-               try {
-                   java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
-               } catch (IOException ex) {
-                   Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-               }
+               openUrl(url);
            }
         });
         
@@ -75,15 +82,18 @@ public class Game extends JFrame {
            @Override
            public void actionPerformed(ActionEvent ae) {
                String url = "https://github.com/kjhx/rubiksrace/issues/new/choose";
-               
-               try {
-                   java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
-               } catch (IOException ex) {
-                   Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-               }
+               openUrl(url);
            }
         });
                 
         setMenuBar(menuBar);
+    }
+    
+    private void openUrl(String url) {
+        try {
+            java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+        } catch (IOException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
