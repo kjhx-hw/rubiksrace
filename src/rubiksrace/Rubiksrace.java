@@ -25,6 +25,7 @@ public class Rubiksrace {
         }
         
         Game game = new Game();
+        Solution solution = new Solution();
     }
     
 }

@@ -6,9 +6,18 @@ package rubiksrace;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -26,7 +35,7 @@ class SolutionBoard extends JPanel {
     
     SolutionBoard() {
         setLayout(new GridLayout(DIMENSION, DIMENSION));
-        // initializeCards();
+        //initializeCards();
     }
 
     private void initializeCards() {
