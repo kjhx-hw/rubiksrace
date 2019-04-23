@@ -259,7 +259,7 @@ public class GameBoard extends JPanel implements IGameTileListener {
             default:
                 //Do nothing
         }
-        
+
         //This sets bool for empty true
         allTiles[tileX][tileY].setEmpty(true);
 
@@ -268,6 +268,5 @@ public class GameBoard extends JPanel implements IGameTileListener {
         this.emptyLocation.y = tileY;
         
         //revalidate();
-       
     }
 }
