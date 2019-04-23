@@ -7,11 +7,18 @@ package rubiksrace;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -20,11 +27,16 @@ import javax.swing.JPanel;
  */
 public class GameBoard extends JPanel implements IGameTileListener {
     private final int DIMENSION = 5;
+    
+    Coordinate emptyLocation = null;
     static ArrayList<GameTile> tileDeck = null;
     GameTile[][] allTiles = new GameTile[5][5];
-    Coordinate emptyLocation = null;
     private ArrayList<Color> backColors = new ArrayList<>(Arrays.asList(Color.BLUE, Color.BLUE, Color.BLUE, Color.BLUE, Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN, Color.RED, Color.RED,Color.RED, Color.RED, Color.ORANGE, Color.ORANGE, Color.ORANGE, Color.ORANGE, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE, Color.YELLOW, Color.YELLOW, Color.YELLOW, Color.YELLOW, Color.BLACK));
+    private ArrayList<Long> highscores = new ArrayList();
+    
     static long startTime = 0;
+    static long endTime = 0;
+    private long timePlayed = 0;
     
     GameBoard() {
         setLayout(new GridLayout(DIMENSION, DIMENSION));
@@ -73,18 +85,59 @@ public class GameBoard extends JPanel implements IGameTileListener {
         System.out.println();
     }
     
-    public long getTime() {
+    private long getTime() {
         long result;
         result = System.currentTimeMillis()/1000;
         
         return result;
     }
 
-    void resetGame() {
+    private void endGame() {
+        endTime = getTime();
+        timePlayed = endTime - startTime;
+        highscores.add(timePlayed);
+        Collections.sort(highscores);
+    }
+    
+    public void resetGame() {
         removeAll();
         tileDeck = null;
         initializeCards();
         revalidate();
+    }
+
+    public void showHighScores() {
+        for (int i = 0; i < tileDeck.size(); i++) {
+            File f = new File("highscores.ser");
+            if (f.exists()) {
+                // https://www.tutorialspoint.com/java/java_serialization.htm
+                try {
+                    FileInputStream fileIn = new FileInputStream("highscores.ser");
+                    ObjectInputStream in = new ObjectInputStream(fileIn);
+                    highscores = (ArrayList<Long>) in.readObject();
+                    in.close();
+                    fileIn.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return;
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(GameBoard.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        }
+
+        String scoreOutput = "";
+
+        if (!highscores.isEmpty()) { 
+            for (int c = 0; c < highscores.size(); c++) {
+                scoreOutput = scoreOutput.concat((c + 1) + ". " + highscores.get(c) + "\n");
+            }
+        } else {
+            scoreOutput = "No high scores found.";
+        }
+        
+        JOptionPane.showMessageDialog(null, scoreOutput, "Highscores", JOptionPane.PLAIN_MESSAGE);
     }
     
     public Integer directionFind(GameTile tile, Coordinate emptylocation) {
@@ -175,6 +228,5 @@ public class GameBoard extends JPanel implements IGameTileListener {
             default:
                 //Do nothing
         }
-       
     }
 }
