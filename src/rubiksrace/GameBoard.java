@@ -90,6 +90,7 @@ public class GameBoard extends JPanel implements IGameTileListener {
         System.out.println(tile.getEmpty());
         System.out.println(emptyLocation);
         System.out.println();
+    
     }
     
     private long getTime() {
