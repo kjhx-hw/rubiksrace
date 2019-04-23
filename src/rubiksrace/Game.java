@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
  * @author kjhuggins
  */
 public class Game extends JFrame {
+    private SolutionBoard solutionBoard = new SolutionBoard();
     private GameBoard gameBoard = new GameBoard();
     private MenuBar menuBar = new MenuBar();
     
