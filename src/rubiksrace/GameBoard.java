@@ -79,8 +79,8 @@ public class GameBoard extends JPanel implements IGameTileListener {
     @Override
     public void tileClicked(GameTile tile) {
         
-        Integer direction = directionFind(tile, emptyLocation);
-        tileMove(direction, tile, emptyLocation);
+        Integer direction = directionFind(tile);
+        tileMove(direction, tile);
         
         System.out.println(tile.getCoordinate());
         System.out.println(tile.getColor());
@@ -144,24 +144,26 @@ public class GameBoard extends JPanel implements IGameTileListener {
         JOptionPane.showMessageDialog(null, scoreOutput, "Highscores", JOptionPane.PLAIN_MESSAGE);
     }
     
-    public Integer directionFind(GameTile tile, Coordinate emptyLocation) {
+    public Integer directionFind(GameTile tile) {
         Integer result = 0;
         
         Integer clickX = tile.getCoordinate().x;
         Integer clickY = tile.getCoordinate().y;
-        Integer blankX = emptyLocation.x;
-        Integer blankY = emptyLocation.y;
+        Integer blankX = this.emptyLocation.x;
+        Integer blankY = this.emptyLocation.y;
         
         if (Objects.equals(clickX, blankX)) {
             
             //RIGHT
             if (blankY > clickY) {
                 result = 2;
+                System.out.println("2");
             }
             
             //LEFT
             else {
                 result = 1;
+                System.out.println("1");
             }
         }
         
@@ -170,11 +172,13 @@ public class GameBoard extends JPanel implements IGameTileListener {
             //DOWN
             if (blankX > clickX) {
                 result = 4;
+                System.out.println("4");
             }
             
             //UP
             else {
                 result = 3;
+                System.out.println("3");
             }
         }
         
@@ -185,12 +189,12 @@ public class GameBoard extends JPanel implements IGameTileListener {
         return result;
     }
     
-    public void tileMove(Integer direction, GameTile tile, Coordinate emptyLocation) {
+    public void tileMove(Integer direction, GameTile tile) {
         
         Integer tileX = tile.getCoordinate().x;
         Integer tileY = tile.getCoordinate().y;
-        Integer emptyX = emptyLocation.x;
-        Integer emptyY = emptyLocation.y;
+        Integer emptyX = this.emptyLocation.x;
+        Integer emptyY = this.emptyLocation.y;
            
         switch (direction) {
             
@@ -203,9 +207,11 @@ public class GameBoard extends JPanel implements IGameTileListener {
                 for(int i = emptyY; i < tileY; i++) {
                     
                     allTiles[tileX][i].setColor(allTiles[tileX][i+1].getColor());
+                    allTiles[tileX][i].setCoordinate(allTiles[tileX][i+1].getCoordinate());
                 }
                 
                 allTiles[tileX][tileY].setEmpty(true);
+                allTiles[tileX][tileY].setCoordinate(allTiles[tileX][emptyY].getCoordinate());
                 
                 System.out.println("Case 1: LEFT");
             break;
@@ -215,13 +221,17 @@ public class GameBoard extends JPanel implements IGameTileListener {
                 for(int i = emptyY; i > tileY; i--) {
             
                 }
+                
+                System.out.println("Case 2: RIGHT");
             break;
         
             case 3:
                 //UP
                 for(int i = emptyX; i < tileX; i++) {
                 
-                }   
+                }
+                
+                System.out.println("Case 3: UP");
             break;
         
             case 4:
@@ -229,6 +239,8 @@ public class GameBoard extends JPanel implements IGameTileListener {
                 for(int i = emptyX; i > tileX; i--) {
 
                 }
+                
+                System.out.println("Case 4: DOWN");
             break;
                 
             default:
