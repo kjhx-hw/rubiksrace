@@ -11,9 +11,14 @@ import java.awt.MenuBar;
 import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author kjhuggins
@@ -50,6 +55,13 @@ public class Game extends JFrame {
         menuHelp.addSeparator();
         MenuItem reportIssue = new MenuItem("Report Issue");
         menuHelp.add(reportIssue);
+        
+        viewHighScores.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameBoard.showHighScores();
+            }
+        });
         
         startOver.addActionListener(new ActionListener() {
             @Override
