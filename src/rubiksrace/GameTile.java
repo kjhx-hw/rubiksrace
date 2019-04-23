@@ -23,7 +23,8 @@ public class GameTile extends Button {
     private boolean hasMatch = false;
     private boolean isEmpty = false;
     
-    private ArrayList<IGameTileListener> clickListeners = new ArrayList<IGameTileListener>();
+    private ArrayList<IGameTileListener> clickListeners = new ArrayList<>();
+    //<IGameTileListener>
     
     public GameTile(String label) {
         super(label);
@@ -53,6 +54,7 @@ public class GameTile extends Button {
     
     public void setEmpty(boolean q) {
         isEmpty = q;
+        setColor(Color.BLACK);
     }
     
     public boolean getEmpty() {

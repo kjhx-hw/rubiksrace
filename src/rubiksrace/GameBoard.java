@@ -14,6 +14,7 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -137,5 +138,95 @@ public class GameBoard extends JPanel implements IGameTileListener {
         }
         
         JOptionPane.showMessageDialog(null, scoreOutput, "Highscores", JOptionPane.PLAIN_MESSAGE);
+    }
+    
+    public Integer directionFind(GameTile tile, Coordinate emptylocation) {
+        Integer result = 0;
+        
+        Integer clickX = tile.getCoordinate().x;
+        Integer clickY = tile.getCoordinate().y;
+        Integer blankX = emptylocation.x;
+        Integer blankY = emptylocation.y;
+        
+        if (Objects.equals(clickX, blankX)) {
+            
+            //RIGHT
+            if (blankY > clickY) {
+                result = 2;
+            }
+            
+            //LEFT
+            else {
+                result = 1;
+            }
+        }
+        
+        else if (Objects.equals(clickY, blankY)) {
+            
+            //DOWN
+            if (blankX > clickX) {
+                result = 4;
+            }
+            
+            //UP
+            else {
+                result = 3;
+            }
+        }
+        
+        else {
+            System.out.println("Wrong tile, my DUDE!");
+        }
+        
+        return result;
+    }
+    
+    public void tileMove(Integer direction, GameTile tile, Coordinate emptylocation) {
+        
+        Integer tileX = tile.getCoordinate().x;
+        Integer tileY = tile.getCoordinate().y;
+        Integer emptyX = emptylocation.x;
+        Integer emptyY = emptylocation.y;
+           
+        switch (direction) {
+            
+            case 1:
+                
+                //Set Empty to false for previous empty tile to move
+                allTiles[emptyX][emptyY].setEmpty(false);
+                
+                //LEFT
+                for(int i = emptyY; i < tileY; i++) {
+                    
+                    allTiles[tileX][i].setColor(allTiles[tileX][i+1].getColor());
+                }
+                
+                allTiles[tileX][tileY].setEmpty(true);
+            break;
+            
+            case 2:
+                //RIGHT
+                for(int i = emptyY; i > tileY; i--) {
+            
+                }
+            break;
+        
+            case 3:
+                //UP
+                for(int i = emptyX; i < tileX; i++) {
+                
+                }   
+            break;
+        
+            case 4:
+                //DOWN
+                for(int i = emptyX; i > tileX; i--) {
+
+                }
+            break;
+                
+            default:
+                //Do nothing
+        }
     }
 }
