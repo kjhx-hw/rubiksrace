@@ -80,7 +80,10 @@ public class GameBoard extends JPanel implements IGameTileListener {
     public void tileClicked(GameTile tile) {
         
         Integer direction = directionFind(tile);
-        tileMove(direction, tile);
+        
+        if (direction != 0) {
+            tileMove(direction, tile);
+        }
         
         System.out.println(tile.getCoordinate());
         System.out.println(tile.getColor());
@@ -184,6 +187,7 @@ public class GameBoard extends JPanel implements IGameTileListener {
         
         else {
             System.out.println("Wrong tile, my DUDE!");
+            result = 0;
         }
         
         return result;
@@ -195,59 +199,74 @@ public class GameBoard extends JPanel implements IGameTileListener {
         Integer tileY = tile.getCoordinate().y;
         Integer emptyX = this.emptyLocation.x;
         Integer emptyY = this.emptyLocation.y;
+        
+        //Set Empty to false for previous empty tile to move
+        allTiles[emptyX][emptyY].setEmpty(false);
            
         switch (direction) {
             
             case 1:
-                
-                //Set Empty to false for previous empty tile to move
-                allTiles[emptyX][emptyY].setEmpty(false);
-                
+  
                 //LEFT
                 for(int i = emptyY; i < tileY; i++) {
                     
                     allTiles[tileX][i].setColor(allTiles[tileX][i+1].getColor());
-                    allTiles[tileX][i].setCoordinate(allTiles[tileX][i+1].getCoordinate());
+                    
+                    //Saving for later but do not unleash; this code weird
+                    //allTiles[tileX][i].setCoordinate(allTiles[tileX][i+1].getCoordinate());
                 }
+  
+                //Saving for later but do not unleash; this code weird
+                //allTiles[tileX][tileY].setCoordinate(allTiles[tileX][emptyY].getCoordinate());
                 
-                allTiles[tileX][tileY].setEmpty(true);
-                allTiles[tileX][tileY].setCoordinate(allTiles[tileX][emptyY].getCoordinate());
-                
-                System.out.println("Case 1: LEFT");
+                //System.out.println("Case 1: LEFT");
             break;
             
             case 2:
                 //RIGHT
                 for(int i = emptyY; i > tileY; i--) {
-            
+                    
+                    allTiles[tileX][i].setColor(allTiles[tileX][i-1].getColor());
+                    
                 }
                 
-                System.out.println("Case 2: RIGHT");
+                //System.out.println("Case 2: RIGHT");
             break;
         
             case 3:
                 //UP
                 for(int i = emptyX; i < tileX; i++) {
-                
+                    
+                    allTiles[i][tileY].setColor(allTiles[i+1][tileY].getColor());
+                    
                 }
                 
-                System.out.println("Case 3: UP");
+                //System.out.println("Case 3: UP");
             break;
         
             case 4:
                 //DOWN
                 for(int i = emptyX; i > tileX; i--) {
-
+                    
+                    allTiles[i][tileY].setColor(allTiles[i-1][tileY].getColor());
+                    
                 }
                 
-                System.out.println("Case 4: DOWN");
+                //System.out.println("Case 4: DOWN");
             break;
                 
             default:
                 //Do nothing
         }
         
-        revalidate();
+        //This sets bool for empty true
+        allTiles[tileX][tileY].setEmpty(true);
+
+        //This sets the coordinate for empty
+        this.emptyLocation.x = tileX;
+        this.emptyLocation.y = tileY;
+        
+        //revalidate();
        
     }
 }
