@@ -36,7 +36,7 @@ public class Game extends JFrame {
         setResizable(false);
         setVisible(true);
     }
-
+    
     private void initializeMenu() {
         Menu menuView = new Menu("View");
         menuBar.add(menuView);

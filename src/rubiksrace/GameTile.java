@@ -54,7 +54,10 @@ public class GameTile extends Button {
     
     public void setEmpty(boolean q) {
         isEmpty = q;
-        setColor(Color.BLACK);
+        
+        if (q) {
+            setColor(Color.BLACK);
+        }
     }
     
     public boolean getEmpty() {
