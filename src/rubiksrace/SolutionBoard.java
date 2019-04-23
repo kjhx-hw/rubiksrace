@@ -60,4 +60,18 @@ class SolutionBoard extends JPanel {
             }
         }
     }
+    
+    public GameTile[][] getSolution() {
+        // gets solution array
+        return null;
+    }
+    
+    public void setSolution(GameTile[][] q) {
+        // sets new solution array
+    }
+    
+    public void newSolution() {
+        // shuffles solution array to get new solution
+        // used upon new game
+    }
 }
