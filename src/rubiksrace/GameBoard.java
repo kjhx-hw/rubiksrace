@@ -281,7 +281,5 @@ public class GameBoard extends JPanel implements IGameTileListener {
                 tinyBoard[i-1][c-1] = allTiles[i][c];
             }
         }
-        
-        
     }
 }
