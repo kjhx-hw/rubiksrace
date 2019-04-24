@@ -40,8 +40,6 @@ public class Game extends JFrame {
         Menu menuView = new Menu("View");
         menuBar.add(menuView);
         
-        MenuItem showSolution = new MenuItem("Solution");
-        menuView.add(showSolution);
         MenuItem viewHighScores = new MenuItem("High Scores");
         menuView.add(viewHighScores);
         
