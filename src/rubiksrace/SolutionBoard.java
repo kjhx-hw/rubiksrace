@@ -1,6 +1,6 @@
 /*
  * Here comes the text of your license
- * Each line should be prefixed with  * 
+ * Each line should be prefixed with  *
  */
 package rubiksrace;
 
@@ -18,14 +18,15 @@ import static rubiksrace.GameBoard.tileDeck;
  */
 class SolutionBoard extends JPanel {
     private final Integer DIMENSION = 3;
-    
+    private final Integer ALLCOLORS = 5;
+
     GameTile[][] tileSolution = new GameTile[3][3];
     GameTile[][] tileFiver = new GameTile[5][5];
-            
+
     static ArrayList<GameTile> tileSolutionDeck = null;
-    
-    private ArrayList<Color> backColors = new ArrayList<>(Arrays.asList(Color.BLUE, Color.BLUE, Color.BLUE, Color.BLUE, Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN, Color.RED, Color.RED,Color.RED, Color.RED, Color.ORANGE, Color.ORANGE, Color.ORANGE, Color.ORANGE, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE, Color.YELLOW, Color.YELLOW, Color.YELLOW, Color.YELLOW, Color.BLACK));
-    
+
+    private ArrayList<Color> backColors = new ArrayList<>(Arrays.asList(Color.BLUE, Color.BLUE, Color.BLUE, Color.BLUE, Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN, Color.RED, Color.RED,Color.RED, Color.RED, Color.ORANGE, Color.ORANGE, Color.ORANGE, Color.ORANGE, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE, Color.YELLOW, Color.YELLOW, Color.YELLOW, Color.YELLOW));
+
     SolutionBoard() {
         setLayout(new GridLayout(DIMENSION, DIMENSION));
         initializeCards();
@@ -34,19 +35,19 @@ class SolutionBoard extends JPanel {
 
     private void initializeCards() {
         tileSolutionDeck = new ArrayList();
-        
-        for (int i = 0; i < ((DIMENSION*DIMENSION)); i++) {
+
+        for (int i = 0; i < ((ALLCOLORS*ALLCOLORS)); i++) {
             GameTile newCard = new GameTile("");
             newCard.setColor(backColors.get(i));
             tileSolutionDeck.add(newCard);
         }
-        
+
          // Shuffles tiles and adds to ui
         Collections.shuffle(tileSolutionDeck);
-        for (int i = 0; i < tileSolutionDeck.size(); i++) {
+        for (int i = 0; i < (DIMENSION * DIMENSION); i++) {
             add(tileSolutionDeck.get(i));
         }
-        
+
         int q = 0;
         for (int i = 0; i < DIMENSION; i++) {
             for (int c = 0; c < DIMENSION; c++) {
@@ -55,10 +56,10 @@ class SolutionBoard extends JPanel {
                 q++;
             }
         }
-        
+
         convertSolution();
     }
-    
+
     private void convertSolution() {
         // translates the 5x5 into the 3x3
         for (int i = 1; i < 3; i++) {
@@ -67,23 +68,23 @@ class SolutionBoard extends JPanel {
             }
         }
     }
-    
+
     public ArrayList<GameTile> getSolution() {
         ArrayList<GameTile> temp = null;
-        
+
         for (int i = 0; i < 3; i++) {
             for (int c = 0; c < 3; c++) {
                 temp.add(tileSolution[i][c]);
             }
         }
-        
+
         return temp;
     }
-    
+
     public void setSolution(GameTile[][] q) {
         tileSolution = q;
     }
-    
+
     public void newSolution() {
         Collections.shuffle(tileSolutionDeck);
 
@@ -95,11 +96,11 @@ class SolutionBoard extends JPanel {
                 if (tileSolutionDeck.get(q).getColor() == Color.BLACK) {
                     tileSolutionDeck.get(q).setEmpty(true);
                 }
-                
+
                 q++;
             }
         }
-        
+
         // Parent should now call convertSolution
     }
 }
