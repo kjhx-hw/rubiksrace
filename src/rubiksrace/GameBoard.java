@@ -85,12 +85,7 @@ public class GameBoard extends JPanel implements IGameTileListener {
             tileMove(direction, tile);
         }
         
-        System.out.println(tile.getCoordinate());
-        System.out.println(tile.getColor());
-        System.out.println(tile.getEmpty());
-        System.out.println(emptyLocation);
-        System.out.println();
-    
+        System.out.println("Clicked tile " + tile.getCoordinate());
     }
     
     private long getTime() {
