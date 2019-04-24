@@ -17,10 +17,11 @@ import static rubiksrace.GameBoard.tileDeck;
  * @author kjhuggins
  */
 class SolutionBoard extends JPanel {
-    private final Integer DIMENSION = 5;
+    private final Integer DIMENSION = 3;
     
     GameTile[][] tileSolution = new GameTile[3][3];
     GameTile[][] tileFiver = new GameTile[5][5];
+            
     static ArrayList<GameTile> tileSolutionDeck = null;
     
     private ArrayList<Color> backColors = new ArrayList<>(Arrays.asList(Color.BLUE, Color.BLUE, Color.BLUE, Color.BLUE, Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN, Color.RED, Color.RED,Color.RED, Color.RED, Color.ORANGE, Color.ORANGE, Color.ORANGE, Color.ORANGE, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE, Color.YELLOW, Color.YELLOW, Color.YELLOW, Color.YELLOW, Color.BLACK));
@@ -47,8 +48,8 @@ class SolutionBoard extends JPanel {
         }
         
         int q = 0;
-        for (int i = 0; i < 5; i++) {
-            for (int c = 0; c < 5; c++) {
+        for (int i = 0; i < DIMENSION; i++) {
+            for (int c = 0; c < DIMENSION; c++) {
                 tileFiver[i][c] = tileSolutionDeck.get(q);
                 tileSolutionDeck.get(q).setCoordinate(new Coordinate(i, c));
                 q++;

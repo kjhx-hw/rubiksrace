@@ -26,7 +26,10 @@ public class Solution extends JFrame {
         Dimension screenSize = tk.getScreenSize();
         int screenHeight = screenSize.height;
         int screenWidth = screenSize.width;
-        setSize(500,500);
+        
+        int windowLength = 300;
+        int windowWidth = 300;
+        setSize(windowWidth,windowLength);
         setLocation(screenWidth, -screenHeight);
         //
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
