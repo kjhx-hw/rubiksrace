@@ -18,6 +18,7 @@ import static rubiksrace.GameBoard.tileDeck;
  */
 class SolutionBoard extends JPanel {
     private final Integer DIMENSION = 3;
+    private final Integer ALLCOLORS = 5;
     
     GameTile[][] tileSolution = new GameTile[3][3];
     GameTile[][] tileFiver = new GameTile[5][5];
@@ -35,7 +36,7 @@ class SolutionBoard extends JPanel {
     private void initializeCards() {
         tileSolutionDeck = new ArrayList();
         
-        for (int i = 0; i < ((DIMENSION*DIMENSION)); i++) {
+        for (int i = 0; i < ((ALLCOLORS*ALLCOLORS)); i++) {
             GameTile newCard = new GameTile("");
             newCard.setColor(backColors.get(i));
             tileSolutionDeck.add(newCard);
@@ -43,7 +44,7 @@ class SolutionBoard extends JPanel {
         
          // Shuffles tiles and adds to ui
         Collections.shuffle(tileSolutionDeck);
-        for (int i = 0; i < tileSolutionDeck.size(); i++) {
+        for (int i = 0; i < (DIMENSION * DIMENSION); i++) {
             add(tileSolutionDeck.get(i));
         }
         
