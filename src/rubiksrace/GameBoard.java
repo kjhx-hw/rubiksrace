@@ -41,6 +41,8 @@ public class GameBoard extends JPanel implements IGameTileListener {
     GameBoard() {
         setLayout(new GridLayout(DIMENSION, DIMENSION));
         initializeCards();
+        
+        Solution solution = new Solution();
     }
 
     private void initializeCards() {
@@ -85,12 +87,7 @@ public class GameBoard extends JPanel implements IGameTileListener {
             tileMove(direction, tile);
         }
         
-        System.out.println(tile.getCoordinate());
-        System.out.println(tile.getColor());
-        System.out.println(tile.getEmpty());
-        System.out.println(emptyLocation);
-        System.out.println();
-    
+        System.out.println("Clicked tile " + tile.getCoordinate());
     }
     
     private long getTime() {
@@ -148,13 +145,15 @@ public class GameBoard extends JPanel implements IGameTileListener {
         JOptionPane.showMessageDialog(null, scoreOutput, "Highscores", JOptionPane.PLAIN_MESSAGE);
     }
     
-    public Integer directionFind(GameTile tile) {
+    private Integer directionFind(GameTile tile) {
         Integer result = 0;
         
         Integer clickX = tile.getCoordinate().x;
         Integer clickY = tile.getCoordinate().y;
         Integer blankX = this.emptyLocation.x;
         Integer blankY = this.emptyLocation.y;
+        
+        System.out.print("Direction ");
         
         if (Objects.equals(clickX, blankX)) {
             
@@ -187,14 +186,14 @@ public class GameBoard extends JPanel implements IGameTileListener {
         }
         
         else {
-            System.out.println("Wrong tile, my DUDE!");
+            System.out.println("wrong tile, my DUDE!");
             result = 0;
         }
         
         return result;
     }
     
-    public void tileMove(Integer direction, GameTile tile) {
+    private void tileMove(Integer direction, GameTile tile) {
         
         Integer tileX = tile.getCoordinate().x;
         Integer tileY = tile.getCoordinate().y;
@@ -268,5 +267,19 @@ public class GameBoard extends JPanel implements IGameTileListener {
         this.emptyLocation.y = tileY;
         
         //revalidate();
+        checkVictory();
+    }
+
+    private void checkVictory() {
+        // translates the 5x5 into a 3x3
+        // creates array of colors
+        // rotates and checks again
+        GameTile[][] tinyBoard = new GameTile[3][3];
+        GameTile[][] solutionBoard;
+        for (int i = 1; i < 3; i++) {
+            for (int c = 1; c < 3; c++) {
+                tinyBoard[i-1][c-1] = allTiles[i][c];
+            }
+        }
     }
 }
