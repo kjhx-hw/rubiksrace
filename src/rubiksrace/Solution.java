@@ -32,10 +32,9 @@ public class Solution extends JFrame {
         setSize(windowWidth,windowLength);
         setLocation(screenWidth, -screenHeight);
         
-        //setUndecorated(true);
-        //getRootPane().setWindowDecorationStyle(JRootPane.NONE);
-    
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         add(solutionBoard);
         setResizable(false);
         setVisible(true);
