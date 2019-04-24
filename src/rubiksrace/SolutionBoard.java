@@ -6,18 +6,9 @@ package rubiksrace;
 
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Objects;
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -35,7 +26,8 @@ class SolutionBoard extends JPanel {
     
     SolutionBoard() {
         setLayout(new GridLayout(DIMENSION, DIMENSION));
-        //initializeCards();
+        initializeCards();
+        // if tileSolution contains empty tile, redo solution
     }
 
     private void initializeCards() {
@@ -45,7 +37,7 @@ class SolutionBoard extends JPanel {
             tileDeck.add(newCard);
         }
         
-         // Shuffles tiles and adds to deck
+         // Shuffles tiles and adds to ui
         Collections.shuffle(tileDeck);
         for (int i = 0; i < tileDeck.size(); i++) {
             add(tileDeck.get(i));
@@ -59,19 +51,42 @@ class SolutionBoard extends JPanel {
                 q++;
             }
         }
+        
+        convertSolution();
+    }
+    
+    private void containsEmpty() {
+        // checks tileFiver center 3 for empty tile
+    }
+    
+    private void convertSolution() {
+        // translates the 5x5 into the 3x3
     }
     
     public GameTile[][] getSolution() {
-        // gets solution array
-        return null;
+        return tileSolution;
     }
     
     public void setSolution(GameTile[][] q) {
-        // sets new solution array
+        tileSolution = q;
     }
     
     public void newSolution() {
-        // shuffles solution array to get new solution
-        // used upon new game
+        Collections.shuffle(tileDeck);
+
+        int q = 0;
+        for (int i = 0; i < 5; i++) {
+            for (int c = 0; c < 5; c++) {
+                tileFiver[i][c] = tileDeck.get(q);
+                tileDeck.get(q).setCoordinate(new Coordinate(i, c));
+                if (tileDeck.get(q).getColor() == Color.BLACK) {
+                    tileDeck.get(q).setEmpty(true);
+                }
+                
+                q++;
+            }
+        }
+        
+        // Parent should now call convertSolution
     }
 }
