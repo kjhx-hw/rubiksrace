@@ -21,7 +21,7 @@ class SolutionBoard extends JPanel {
     
     GameTile[][] tileSolution = new GameTile[3][3];
     GameTile[][] tileFiver = new GameTile[5][5];
-    static ArrayList<GameTile> tileDeck = null;
+    static ArrayList<GameTile> tileSolutionDeck = null;
     
     private ArrayList<Color> backColors = new ArrayList<>(Arrays.asList(Color.BLUE, Color.BLUE, Color.BLUE, Color.BLUE, Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN, Color.RED, Color.RED,Color.RED, Color.RED, Color.ORANGE, Color.ORANGE, Color.ORANGE, Color.ORANGE, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE, Color.YELLOW, Color.YELLOW, Color.YELLOW, Color.YELLOW, Color.BLACK));
     
@@ -37,20 +37,20 @@ class SolutionBoard extends JPanel {
         for (int i = 0; i < ((DIMENSION*DIMENSION)); i++) {
             GameTile newCard = new GameTile("");
             newCard.setColor(backColors.get(i));
-            tileDeck.add(newCard);
+            tileSolutionDeck.add(newCard);
         }
         
          // Shuffles tiles and adds to ui
         Collections.shuffle(tileDeck);
-        for (int i = 0; i < tileDeck.size(); i++) {
-            add(tileDeck.get(i));
+        for (int i = 0; i < tileSolutionDeck.size(); i++) {
+            add(tileSolutionDeck.get(i));
         }
         
         int q = 0;
         for (int i = 0; i < 5; i++) {
             for (int c = 0; c < 5; c++) {
-                tileFiver[i][c] = tileDeck.get(q);
-                tileDeck.get(q).setCoordinate(new Coordinate(i, c));
+                tileFiver[i][c] = tileSolutionDeck.get(q);
+                tileSolutionDeck.get(q).setCoordinate(new Coordinate(i, c));
                 q++;
             }
         }
@@ -75,15 +75,15 @@ class SolutionBoard extends JPanel {
     }
     
     public void newSolution() {
-        Collections.shuffle(tileDeck);
+        Collections.shuffle(tileSolutionDeck);
 
         int q = 0;
         for (int i = 0; i < 5; i++) {
             for (int c = 0; c < 5; c++) {
-                tileFiver[i][c] = tileDeck.get(q);
-                tileDeck.get(q).setCoordinate(new Coordinate(i, c));
-                if (tileDeck.get(q).getColor() == Color.BLACK) {
-                    tileDeck.get(q).setEmpty(true);
+                tileFiver[i][c] = tileSolutionDeck.get(q);
+                tileSolutionDeck.get(q).setCoordinate(new Coordinate(i, c));
+                if (tileSolutionDeck.get(q).getColor() == Color.BLACK) {
+                    tileSolutionDeck.get(q).setEmpty(true);
                 }
                 
                 q++;
