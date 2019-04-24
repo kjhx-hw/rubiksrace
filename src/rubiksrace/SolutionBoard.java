@@ -25,7 +25,7 @@ class SolutionBoard extends JPanel {
             
     static ArrayList<GameTile> tileSolutionDeck = null;
     
-    private ArrayList<Color> backColors = new ArrayList<>(Arrays.asList(Color.BLUE, Color.BLUE, Color.BLUE, Color.BLUE, Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN, Color.RED, Color.RED,Color.RED, Color.RED, Color.ORANGE, Color.ORANGE, Color.ORANGE, Color.ORANGE, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE, Color.YELLOW, Color.YELLOW, Color.YELLOW, Color.YELLOW, Color.BLACK));
+    private ArrayList<Color> backColors = new ArrayList<>(Arrays.asList(Color.BLUE, Color.BLUE, Color.BLUE, Color.BLUE, Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN, Color.RED, Color.RED,Color.RED, Color.RED, Color.ORANGE, Color.ORANGE, Color.ORANGE, Color.ORANGE, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE, Color.YELLOW, Color.YELLOW, Color.YELLOW, Color.YELLOW));
     
     SolutionBoard() {
         setLayout(new GridLayout(DIMENSION, DIMENSION));
@@ -56,16 +56,7 @@ class SolutionBoard extends JPanel {
                 q++;
             }
         }
-        
-        convertSolution();
-    }
-    
-    private void containsEmpty() {
-        // checks tileFiver center 3 for empty tile
-    }
-    
-    private void convertSolution() {
-        // translates the 5x5 into the 3x3
+       
     }
     
     public GameTile[][] getSolution() {
