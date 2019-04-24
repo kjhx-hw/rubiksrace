@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
  * @author kjhuggins
  */
 public class Solution extends JFrame {
-    private SolutionBoard solutionBoard = new SolutionBoard();
+    public SolutionBoard board = new SolutionBoard();
     
     public Solution() {
         //Technique used from http://www.java2s.com
@@ -36,7 +36,7 @@ public class Solution extends JFrame {
         //getRootPane().setWindowDecorationStyle(JRootPane.NONE);
     
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        add(solutionBoard);
+        add(board);
         setResizable(false);
         setVisible(true);
     }
