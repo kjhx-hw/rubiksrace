@@ -38,11 +38,11 @@ public class GameBoard extends JPanel implements IGameTileListener {
     static long endTime = 0;
     private long timePlayed = 0;
     
+    private Solution solution = new Solution();
+    
     GameBoard() {
         setLayout(new GridLayout(DIMENSION, DIMENSION));
         initializeCards();
-        
-        Solution solution = new Solution();
     }
 
     private void initializeCards() {
@@ -275,13 +275,34 @@ public class GameBoard extends JPanel implements IGameTileListener {
         // creates array of colors
         // rotates and checks again
         GameTile[][] tinyBoard = new GameTile[3][3];
-        GameTile[][] solutionBoard;
+        ArrayList<GameTile> solutionBoard = solution.board.getSolution();
+        
         for (int i = 1; i < 3; i++) {
             for (int c = 1; c < 3; c++) {
                 tinyBoard[i-1][c-1] = allTiles[i][c];
             }
         }
         
+        for (int i = 0; i < 4; i++) {
+            // rotate 4 times
+            // compareArray
+        }
         
+        
+    }
+    
+    private boolean compareArray(ArrayList<GameTile> a, ArrayList<GameTile> b) {
+        boolean arrayMatch = true;
+        Integer iterator = 0;
+        
+        while (arrayMatch != false && iterator < a.size()) {
+            if (a.get(iterator).getColor() != b.get(iterator).getColor()) {
+                arrayMatch = false;
+            }
+            
+            iterator++;
+        }
+        
+        return arrayMatch;
     }
 }
