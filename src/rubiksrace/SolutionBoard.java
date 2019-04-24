@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import static rubiksrace.GameBoard.tileDeck;
 
 /**
  *
@@ -39,6 +40,8 @@ class SolutionBoard extends JPanel {
     }
 
     private void initializeCards() {
+        tileSolutionDeck = new ArrayList();
+        
         for (int i = 0; i < ((DIMENSION*DIMENSION)); i++) {
             GameTile newCard = new GameTile("");
             newCard.setColor(backColors.get(i));
