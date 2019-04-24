@@ -151,6 +151,8 @@ public class GameBoard extends JPanel implements IGameTileListener {
         Integer blankX = this.emptyLocation.x;
         Integer blankY = this.emptyLocation.y;
         
+        System.out.print("Direction ");
+        
         if (Objects.equals(clickX, blankX)) {
             
             //RIGHT
@@ -182,7 +184,7 @@ public class GameBoard extends JPanel implements IGameTileListener {
         }
         
         else {
-            System.out.println("Wrong tile, my DUDE!");
+            System.out.println("wrong tile, my DUDE!");
             result = 0;
         }
         
