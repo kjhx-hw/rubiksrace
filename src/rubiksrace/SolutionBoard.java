@@ -59,16 +59,25 @@ class SolutionBoard extends JPanel {
         convertSolution();
     }
     
-    private void containsEmpty() {
-        // checks tileFiver center 3 for empty tile
-    }
-    
     private void convertSolution() {
         // translates the 5x5 into the 3x3
+        for (int i = 1; i < 3; i++) {
+            for (int c = 1; c < 3; c++) {
+                tileSolution[i-1][c-1] = tileFiver[i][c];
+            }
+        }
     }
     
-    public GameTile[][] getSolution() {
-        return tileSolution;
+    public ArrayList<GameTile> getSolution() {
+        ArrayList<GameTile> temp = null;
+        
+        for (int i = 0; i < 3; i++) {
+            for (int c = 0; c < 3; c++) {
+                temp.add(tileSolution[i][c]);
+            }
+        }
+        
+        return temp;
     }
     
     public void setSolution(GameTile[][] q) {
