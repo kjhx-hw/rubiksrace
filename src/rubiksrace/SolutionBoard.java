@@ -42,7 +42,7 @@ class SolutionBoard extends JPanel {
         }
         
          // Shuffles tiles and adds to ui
-        Collections.shuffle(tileDeck);
+        Collections.shuffle(tileSolutionDeck);
         for (int i = 0; i < tileSolutionDeck.size(); i++) {
             add(tileSolutionDeck.get(i));
         }

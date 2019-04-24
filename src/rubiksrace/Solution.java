@@ -25,13 +25,16 @@ public class Solution extends JFrame {
         Toolkit tk = Toolkit.getDefaultToolkit();
         Dimension screenSize = tk.getScreenSize();
         int screenHeight = screenSize.height;
-        int screenWidth = screenSize.width;
+        int screenWidth = screenSize.width - screenSize.width/2;
         
         int windowLength = 300;
         int windowWidth = 300;
         setSize(windowWidth,windowLength);
         setLocation(screenWidth, -screenHeight);
-        //
+        
+        //setUndecorated(true);
+        //getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+    
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         add(solutionBoard);
         setResizable(false);

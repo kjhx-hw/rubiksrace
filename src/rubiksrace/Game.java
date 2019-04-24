@@ -11,6 +11,8 @@ import java.awt.MenuBar;
 import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -28,7 +30,10 @@ public class Game extends JFrame {
     private MenuBar menuBar = new MenuBar();
     
     public Game() {
-        setSize(500, 500);
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        Dimension screenSize = tk.getScreenSize();
+        
+        setSize(2*screenSize.width/5, 2*screenSize.width/5);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initializeMenu();
         add(gameBoard);
