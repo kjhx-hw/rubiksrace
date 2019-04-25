@@ -18,10 +18,11 @@ import static rubiksrace.GameBoard.tileDeck;
  */
 class SolutionBoard extends JPanel {
     private final Integer DIMENSION = 3;
-    private final Integer ALLCOLORS = 5;
+    //There are 24 colors used
+    private final Integer ALLCOLORS = 24;
 
-    GameTile[][] tileSolution = new GameTile[3][3];
-    GameTile[][] tileFiver = new GameTile[5][5];
+    private GameTile[][] tileSolutionOutput = new GameTile[3][3];
+    //GameTile[][] tileFiver = new GameTile[5][5];
 
     static ArrayList<GameTile> tileSolutionDeck = null;
 
@@ -29,14 +30,14 @@ class SolutionBoard extends JPanel {
 
     SolutionBoard() {
         setLayout(new GridLayout(DIMENSION, DIMENSION));
-        initializeCards();
+        initializeCards(tileSolutionOutput);
         // if tileSolution contains empty tile, redo solution
     }
 
-    private void initializeCards() {
+    private void initializeCards(GameTile[][] tileSolutionInput) {
         tileSolutionDeck = new ArrayList();
 
-        for (int i = 0; i < ((ALLCOLORS*ALLCOLORS)); i++) {
+        for (int i = 0; i < (ALLCOLORS); i++) {
             GameTile newCard = new GameTile("");
             newCard.setColor(backColors.get(i));
             tileSolutionDeck.add(newCard);
@@ -51,15 +52,23 @@ class SolutionBoard extends JPanel {
         int q = 0;
         for (int i = 0; i < DIMENSION; i++) {
             for (int c = 0; c < DIMENSION; c++) {
-                tileFiver[i][c] = tileSolutionDeck.get(q);
+                //tileFiver[i][c] = tileSolutionDeck.get(q);
+                tileSolutionInput[i][c] = tileSolutionDeck.get(q);
                 tileSolutionDeck.get(q).setCoordinate(new Coordinate(i, c));
                 q++;
             }
         }
+        
+        //prepare for getSolution()
+        tileSolutionOutput = tileSolutionInput;
 
-        convertSolution();
+        //convertSolution();
     }
-
+    
+    //Instead of converting the already 3 by 3 tileFiver to a 3 by 3
+    //tileSolution, what if we just used tileFiver for the getSolution function.
+    //It will cut out an extra step.
+    /*
     private void convertSolution() {
         // translates the 5x5 into the 3x3
         for (int i = 1; i < 3; i++) {
@@ -68,24 +77,43 @@ class SolutionBoard extends JPanel {
             }
         }
     }
-
+    */
+    
+    /*
     public ArrayList<GameTile> getSolution() {
         ArrayList<GameTile> temp = null;
 
         for (int i = 0; i < 3; i++) {
             for (int c = 0; c < 3; c++) {
-                temp.add(tileSolution[i][c]);
+                //temp.add(tileFiver[i][c]);
+                if (tileSolutionOutput[i][c] != null) {
+                    temp.add(tileSolutionOutput[i][c]);
+                }
             }
         }
 
         return temp;
     }
+    */
+   
+    
+    public GameTile[][] getSolution(GameTile[][] temp) {
 
+        temp = tileSolutionOutput;
+
+        return temp;
+    }
+
+    /*
     public void setSolution(GameTile[][] q) {
         tileSolution = q;
     }
 
     public void newSolution() {
+        initializeCards();
+        //Since initializeCards() already makes a new random solution 3 by 3 board,
+        //what if we used this method to make a new solution for newSolution();
+        /*
         Collections.shuffle(tileSolutionDeck);
 
         int q = 0;
@@ -100,7 +128,9 @@ class SolutionBoard extends JPanel {
                 q++;
             }
         }
+        
 
         // Parent should now call convertSolution
     }
+    */
 }

@@ -30,7 +30,15 @@ public class GameBoard extends JPanel implements IGameTileListener {
 
     Coordinate emptyLocation = null;
     static ArrayList<GameTile> tileDeck = null;
+    
     GameTile[][] allTiles = new GameTile[5][5];
+    GameTile[][] solutionTiles = new GameTile[3][3];
+    GameTile[][] solutionAllTilesCheck = new GameTile[3][3];
+    //temp helps in the rotate method
+    Color temp = Color.BLUE;
+    //GameTile[][] temp = new GameTile[1][1];
+    
+    //private ArrayList<GameTile> solutionTiles = null;
     private ArrayList<Color> backColors = new ArrayList<>(Arrays.asList(Color.BLUE, Color.BLUE, Color.BLUE, Color.BLUE, Color.GREEN, Color.GREEN, Color.GREEN, Color.GREEN, Color.RED, Color.RED,Color.RED, Color.RED, Color.ORANGE, Color.ORANGE, Color.ORANGE, Color.ORANGE, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE, Color.YELLOW, Color.YELLOW, Color.YELLOW, Color.YELLOW, Color.BLACK));
     private ArrayList<Long> highscores = new ArrayList();
 
@@ -41,11 +49,20 @@ public class GameBoard extends JPanel implements IGameTileListener {
     private Solution solution = new Solution();
 
     GameBoard() {
+        
+        //Check it out! This line of code retrieves the solution board from the Solution Class!
+        //Now we can use solution tiles for comparison!
+        //The solutionTiles is placed right here so that it is only made once for comparison
+        //until a new game is created.
+        //solutionTilesOutput = solution.board.getSolution(solutionTilesEmptyInput);
+        solutionTiles = solution.board.getSolution(solutionTiles);
+        
         setLayout(new GridLayout(DIMENSION, DIMENSION));
         initializeCards();
     }
 
     private void initializeCards() {
+       
         tileDeck = new ArrayList();
         for (int i = 0; i < ((DIMENSION*DIMENSION)); i++) {
             GameTile newCard = new GameTile("");
@@ -80,11 +97,17 @@ public class GameBoard extends JPanel implements IGameTileListener {
 
     @Override
     public void tileClicked(GameTile tile) {
-
+        boolean won = false;
+        
         Integer direction = directionFind(tile);
 
         if (direction != 0) {
-            tileMove(direction, tile);
+            won = tileMove(direction, tile);
+        }
+        
+        //If the game is won, then the board will now automatically reset
+        if (won) {
+            resetGame();
         }
 
         System.out.println("Clicked tile " + tile.getCoordinate());
@@ -193,8 +216,10 @@ public class GameBoard extends JPanel implements IGameTileListener {
         return result;
     }
 
-    private void tileMove(Integer direction, GameTile tile) {
+    private boolean tileMove(Integer direction, GameTile tile) {
 
+        boolean won = false;
+        
         Integer tileX = tile.getCoordinate().x;
         Integer tileY = tile.getCoordinate().y;
         Integer emptyX = this.emptyLocation.x;
@@ -267,15 +292,23 @@ public class GameBoard extends JPanel implements IGameTileListener {
         this.emptyLocation.y = tileY;
 
         //revalidate();
-        checkVictory();
+        won = checkVictory();
+        
+        return won;
     }
 
-    private void checkVictory() {
+    private boolean checkVictory() {
+        boolean noEmptySquare = true;
+        boolean solutionFound = false;
+        boolean testSolutions = false;
+        
         // translates the 5x5 into a 3x3
         // creates array of colors
         // rotates and checks again
+        
+        /*
         GameTile[][] tinyBoard = new GameTile[3][3];
-        ArrayList<GameTile> solutionBoard = solution.board.getSolution();
+        //ArrayList<GameTile> solutionBoard = solution.board.getSolution();
 
         for (int i = 1; i < 3; i++) {
             for (int c = 1; c < 3; c++) {
@@ -287,10 +320,81 @@ public class GameBoard extends JPanel implements IGameTileListener {
             // rotate 4 times
             // compareArray
         }
-
-
+        */ 
+        
+        for (int row = 0; row < 3; row++)
+        {
+            for (int column = 0; column < 3; column++)
+            {
+                solutionAllTilesCheck[row][column] = allTiles[row + 1][column + 1];
+                //System.out.println(solutionAllTilesCheck[row][column].getColor());
+                
+                //Check to see if there is an empty space in the middle
+                if (solutionAllTilesCheck[row][column].getColor().equals(Color.BLACK)) {
+                    noEmptySquare = false;
+                }
+                //System.out.println(solutionTiles[row][column].getColor());
+                //System.out.println(solutionAllTilesCheck[row][column].getColor());
+            }
+            
+        }
+        
+        if (noEmptySquare) {
+            
+            for (int i = 0; i < 4; i++) {
+                rotatePerspective();
+                testSolutions = compareArray(solutionAllTilesCheck, solutionTiles);
+                
+                if (testSolutions) {
+                    solutionFound = true;
+                }
+            }
+ 
+        }
+        
+        return solutionFound;
+    }
+    
+    private void rotatePerspective() {
+        
+        //Rotate to the right twice to rotate 90 degrees
+        for (int i = 0; i < 2; i++) {
+            
+            //System.out.println(solutionAllTilesCheck[0][0].getColor());
+            
+            temp = solutionAllTilesCheck[0][0].getColor();
+            
+            solutionAllTilesCheck[0][0].setColor(solutionAllTilesCheck[1][0].getColor());
+            solutionAllTilesCheck[1][0].setColor(solutionAllTilesCheck[2][0].getColor());
+            solutionAllTilesCheck[2][0].setColor(solutionAllTilesCheck[2][1].getColor());
+            solutionAllTilesCheck[2][1].setColor(solutionAllTilesCheck[2][2].getColor());
+            solutionAllTilesCheck[2][2].setColor(solutionAllTilesCheck[1][2].getColor());
+            solutionAllTilesCheck[1][2].setColor(solutionAllTilesCheck[0][2].getColor());
+            solutionAllTilesCheck[0][2].setColor(solutionAllTilesCheck[0][1].getColor());
+            
+            solutionAllTilesCheck[0][1].setColor(temp);
+        }
     }
 
+    private boolean compareArray(GameTile[][] a, GameTile[][] b) {
+        boolean arrayMatch = true;
+        
+        for (int row = 0; row < 3; row++) {
+            
+            for (int column = 0; column < 3; column++) {
+                
+                if (!a[row][column].getColor().equals(b[row][column].getColor())) {
+                    arrayMatch = false;
+                }
+                
+            }
+            
+        }
+        
+        return arrayMatch;
+    }
+    
+    /*
     private boolean compareArray(ArrayList<GameTile> a, ArrayList<GameTile> b) {
         boolean arrayMatch = true;
         Integer iterator = 0;
@@ -305,4 +409,6 @@ public class GameBoard extends JPanel implements IGameTileListener {
 
         return arrayMatch;
     }
+    */
+    
 }

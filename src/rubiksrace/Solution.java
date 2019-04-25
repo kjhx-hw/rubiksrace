@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
  * @author kjhuggins
  */
 public class Solution extends JFrame {
+    
     public SolutionBoard board = new SolutionBoard();
     
     public Solution() {
