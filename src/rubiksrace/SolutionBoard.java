@@ -65,6 +65,13 @@ class SolutionBoard extends JPanel {
         //convertSolution();
     }
     
+    public void resetGame() {
+        removeAll();
+        tileSolutionDeck = null;
+        initializeCards(tileSolutionOutput);
+        revalidate();
+    }
+    
     //Instead of converting the already 3 by 3 tileFiver to a 3 by 3
     //tileSolution, what if we just used tileFiver for the getSolution function.
     //It will cut out an extra step.

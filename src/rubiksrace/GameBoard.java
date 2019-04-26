@@ -154,6 +154,7 @@ public class GameBoard extends JPanel implements IGameTileListener {
         tileDeck = null;
         initializeCards();
         revalidate();
+        solution.board.resetGame();
     }
 
     public void showHighScores() {
