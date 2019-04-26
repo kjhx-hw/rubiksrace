@@ -124,6 +124,37 @@ class SolutionBoard extends JPanel {
         Collections.shuffle(tileSolutionDeck);
 
         int q = 0;
+        for (int i = 0; i < DIMENSION; i++) {
+            for (int c = 0; c < DIMENSION; c++) {
+                tileFiver[i][c] = tileSolutionDeck.get(q);
+                tileSolutionDeck.get(q).setCoordinate(new Coordinate(i, c));
+                q++;
+            }
+        }
+        
+        convertSolution();
+    }
+    
+    private void containsEmpty() {
+        // checks tileFiver center 3 for empty tile
+    }
+    
+    private void convertSolution() {
+        // translates the 5x5 into the 3x3
+    }
+    
+    public GameTile[][] getSolution() {
+        return tileSolution;
+    }
+    
+    public void setSolution(GameTile[][] q) {
+        tileSolution = q;
+    }
+    
+    public void newSolution() {
+        Collections.shuffle(tileSolutionDeck);
+
+        int q = 0;
         for (int i = 0; i < 5; i++) {
             for (int c = 0; c < 5; c++) {
                 tileFiver[i][c] = tileSolutionDeck.get(q);
@@ -131,11 +162,10 @@ class SolutionBoard extends JPanel {
                 if (tileSolutionDeck.get(q).getColor() == Color.BLACK) {
                     tileSolutionDeck.get(q).setEmpty(true);
                 }
-
+                
                 q++;
             }
         }
-        
 
         // Parent should now call convertSolution
     }

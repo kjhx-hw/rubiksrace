@@ -63,6 +63,8 @@ public class GameBoard extends JPanel implements IGameTileListener {
         
         setLayout(new GridLayout(DIMENSION, DIMENSION));
         initializeCards();
+        
+        Solution solution = new Solution();
     }
 
     private void initializeCards() {
