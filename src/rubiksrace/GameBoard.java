@@ -21,6 +21,8 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.JPanel;
 
 /**
@@ -93,8 +95,8 @@ public class GameBoard extends JPanel implements IGameTileListener {
                 q++;
             }
         }
-
-        // startTime = getTime();
+        
+        startTime = getTime();
     }
 
     @Override
@@ -132,7 +134,6 @@ public class GameBoard extends JPanel implements IGameTileListener {
         JOptionPane.showMessageDialog(null,
         "Memory Game Completed in " + timePlayed + " seconds",
           "Highscores",JOptionPane.PLAIN_MESSAGE);
-         
         
         ObjectOutputStream oos = null;
         try {
@@ -144,6 +145,8 @@ public class GameBoard extends JPanel implements IGameTileListener {
         } catch (IOException ex) {
             Logger.getLogger(GameBoard.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        showHighScores();
     }
 
     public void resetGame() {
