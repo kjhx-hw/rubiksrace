@@ -59,6 +59,11 @@ public class Game extends JFrame {
         MenuItem reportIssue = new MenuItem("Report Issue");
         menuHelp.add(reportIssue);
         
+        Menu menuDebug = new Menu("Debug");
+        menuBar.add(menuDebug);
+        MenuItem winGame = new MenuItem("Win Game");
+        menuDebug.add(winGame);
+        
         viewHighScores.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -87,6 +92,14 @@ public class Game extends JFrame {
                String url = "https://github.com/kjhx/rubiksrace/issues/new/choose";
                openUrl(url);
            }
+        });
+        
+        winGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameBoard.endGame();
+                gameBoard.resetGame();
+            }
         });
                 
         setMenuBar(menuBar);

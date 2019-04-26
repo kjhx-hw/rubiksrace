@@ -9,8 +9,10 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -105,8 +107,9 @@ public class GameBoard extends JPanel implements IGameTileListener {
             won = tileMove(direction, tile);
         }
         
-        //If the game is won, then the board will now automatically reset
+        //If the game is won, then the board will now automatically reset        
         if (won) {
+            endGame();
             resetGame();
         }
 
@@ -120,11 +123,27 @@ public class GameBoard extends JPanel implements IGameTileListener {
         return result;
     }
 
-    private void endGame() {
+    public void endGame() {
         endTime = getTime();
         timePlayed = endTime - startTime;
         highscores.add(timePlayed);
         Collections.sort(highscores);
+        
+        JOptionPane.showMessageDialog(null,
+        "Memory Game Completed in " + timePlayed + " seconds",
+          "Highscores",JOptionPane.PLAIN_MESSAGE);
+         
+        
+        ObjectOutputStream oos = null;
+        try {
+
+            FileOutputStream fout = new FileOutputStream("highscores.ser");
+            oos = new ObjectOutputStream(fout);
+            oos.writeObject(highscores);
+            oos.close();
+        } catch (IOException ex) {
+            Logger.getLogger(GameBoard.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void resetGame() {
